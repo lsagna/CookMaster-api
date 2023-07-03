@@ -10,7 +10,6 @@ import {
   Put,
   Query,
   Req,
-  Request,
 } from '@nestjs/common';
 import { CoursesService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
