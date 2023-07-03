@@ -10,7 +10,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { CourseType } from '../enum/course-type.enum';
 
 
-@Entity('users')
+@Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn()
   id: number;
