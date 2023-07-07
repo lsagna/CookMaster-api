@@ -10,6 +10,7 @@ import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { Event } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
+import { EventStatus } from './enum/event-status.enum';
 
 @Injectable()
 export class EventsService {
@@ -47,6 +48,7 @@ export class EventsService {
     newEvent.address = eventDto.address;
     newEvent.host = user;
     newEvent.attendees = [];
+    newEvent.status = EventStatus.OPEN;
 
     return this.eventRepository.save(newEvent);
   }
@@ -82,7 +84,9 @@ export class EventsService {
       throw new ForbiddenException("Can't delete the animal of someone else!");
     }
 
-    await this.eventRepository.delete(eventId);
+    event.status = EventStatus.CLOSED;
+
+    await this.eventRepository.save(event);
   }
 
   newRemainingTicketCalc(

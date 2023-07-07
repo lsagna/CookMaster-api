@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Address } from 'src/modules/users/entities/address.entity';
+import { EventStatus } from '../enum/event-status.enum';
 
 @Entity('events')
 export class Event {
@@ -17,6 +18,9 @@ export class Event {
   @OneToOne(() => User)
   @JoinColumn()
   host: User;
+
+  @Column()
+  status: EventStatus;
 
   @Column()
   startTime: Date;
