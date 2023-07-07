@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { Section } from '../entities/course.entity';
 
 export class UpdateCourseDto {
   @IsString()
@@ -7,5 +8,5 @@ export class UpdateCourseDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly content: string[];
+  readonly content: Section[];
 }

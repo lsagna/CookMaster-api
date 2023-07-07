@@ -9,7 +9,6 @@ import {
 import { User } from 'src/modules/users/entities/user.entity';
 import { CourseType } from '../enum/course-type.enum';
 
-
 @Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn()
@@ -25,9 +24,17 @@ export class Course {
   @Column()
   title: string;
 
-  @Column()
-  content: string[];
+  @Column('json')
+  content: Section[];
 
   @CreateDateColumn()
   createDate: Date;
+}
+
+export class Section {
+  sectionTitle: string;
+
+  sectionText: string;
+
+  sectionImage: string;
 }
