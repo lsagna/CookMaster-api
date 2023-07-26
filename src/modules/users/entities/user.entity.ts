@@ -53,6 +53,9 @@ export class User {
   @Column()
   role: Roles;
 
+  @Column()
+  shoppingCart: number[];
+
   @CreateDateColumn()
   createDate: Date;
 

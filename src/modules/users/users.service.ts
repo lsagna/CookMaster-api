@@ -61,12 +61,13 @@ export class UsersService {
     newUser.email = userDto.email;
     userDto.password = await hash(userDto.password, 10);
     newUser.password = userDto.password;
-    newUser.role = Roles.STANDARD;
+    newUser.role = role;
     preferences.darkMode = false;
     preferences.lang = 'fr-FR';
     preferences.notifications = true;
     preferences.updates = true;
     newUser.preferences = preferences;
+    newUser.shoppingCart = [];
 
     return this.userRepository.save(newUser);
   }
@@ -96,6 +97,7 @@ export class UsersService {
     user.lastname = userDto.lastname ?? user.lastname;
     user.address = address ?? user.address;
     user.preferences = userDto.preferences ?? user.preferences;
+    user.shoppingCart = userDto.shoppingCart ?? user.shoppingCart;
 
     return this.userRepository.save(user);
   }
@@ -132,7 +134,6 @@ export class UsersService {
       expiredAt.getSeconds() +
         this.configS.get<number>('JWT_REFRESH_EXPIRATION'),
     );
-
 
     const refreshToken: RefreshToken = new RefreshToken();
     refreshToken.refreshKey = refreshTokenUUID.toString();

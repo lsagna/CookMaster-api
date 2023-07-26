@@ -1,5 +1,5 @@
 import { AddressDto } from './address.dto';
-import { IsOptional } from 'class-validator';
+import { IsArray, IsOptional } from 'class-validator';
 import { UpdatePreferencesDto } from './update-preferences.dto';
 
 export class UpdateUserDto {
@@ -14,4 +14,8 @@ export class UpdateUserDto {
 
   @IsOptional()
   readonly preferences: UpdatePreferencesDto;
+
+  @IsArray()
+  @IsOptional()
+  readonly shoppingCart: number[];
 }
