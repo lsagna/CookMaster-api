@@ -10,7 +10,6 @@ import {
   Put,
   Query,
   Req,
-  Request,
 } from '@nestjs/common';
 import { CoursesService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -61,5 +60,5 @@ export class CoursesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Req() req, @Param('id') id: number): Promise<void> {
     return this.coursesService.delete(req.user.id, id);
-}
+  }
 }
