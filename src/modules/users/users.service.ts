@@ -133,7 +133,6 @@ export class UsersService {
         this.configS.get<number>('JWT_REFRESH_EXPIRATION'),
     );
 
-
     const refreshToken: RefreshToken = new RefreshToken();
     refreshToken.refreshKey = refreshTokenUUID.toString();
     refreshToken.expireAt = expiredAt.getTime();

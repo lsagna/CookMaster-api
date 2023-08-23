@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from 'src/modules/users/entities/user.entity';
@@ -15,7 +15,7 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => User)
   @JoinColumn()
   creator: User;
 
@@ -25,7 +25,7 @@ export class Product {
   @Column()
   description: string;
 
-  @Column()
+  @Column('json')
   images: string[];
 
   @Column()
@@ -46,6 +46,6 @@ export class Product {
   @Column({ nullable: true })
   duration: Date;
 
-  @Column({ nullable: true })
+  @Column('json', { nullable: true })
   adress: Address;
 }

@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
 import { User } from '../users/entities/user.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UsersService } from '../users/users.service';
@@ -19,7 +18,6 @@ export class ProductsService {
     private readonly userService: UsersService,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-    private readonly configS: ConfigService,
   ) {}
 
   async getAll(relations: string[] = []): Promise<Product[]> {
