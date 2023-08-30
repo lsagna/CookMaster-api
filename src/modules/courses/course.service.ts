@@ -15,6 +15,7 @@ import { UsersService } from '../users/users.service';
 @Injectable()
 export class CoursesService {
   constructor(
+    @InjectRepository(User)
     private readonly userService: UsersService,
     @InjectRepository(Course)
     private readonly courseRepository: Repository<Course>,
