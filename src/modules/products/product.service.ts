@@ -11,6 +11,7 @@ import { UsersService } from '../users/users.service';
 import { Product } from './entities/product.entity';
 import { ProductType } from './enum/product-type.enum';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Address } from '../users/entities/address.entity';
 
 @Injectable()
 export class ProductsService {
@@ -18,6 +19,8 @@ export class ProductsService {
     private readonly userService: UsersService,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
+    @InjectRepository(Address)
+    private readonly addressRepository: Repository<Address>,
   ) {}
 
   async getAll(relations: string[] = []): Promise<Product[]> {
@@ -55,6 +58,8 @@ export class ProductsService {
       newProduct.startTime = productDto.startTime;
       newProduct.duration = productDto.duration;
       newProduct.adress = productDto.adress;
+      console.log(productDto.adress);
+      this.addressRepository.save(newProduct.adress);
     }
 
     return this.productRepository.save(newProduct);
