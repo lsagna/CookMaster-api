@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Preferences, User } from './entities/user.entity';
+import { Preferences, User, Subscription } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -10,6 +10,10 @@ import { Roles } from '../authentication/enum/roles.enum';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { hash } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
+import {
+  SubscriptionTierEnum,
+  SubscriptionTypeEnum,
+} from './enum/subscription.enum';
 
 @Injectable()
 export class UsersService {
@@ -55,13 +59,14 @@ export class UsersService {
 
   async create(userDto: CreateUserDto, role: Roles): Promise<User> {
     const newUser = new User();
+
     const preferences = new Preferences();
     newUser.firstname = userDto.firstname;
     newUser.lastname = userDto.lastname;
     newUser.email = userDto.email;
     userDto.password = await hash(userDto.password, 10);
     newUser.password = userDto.password;
-    newUser.role = Roles.STANDARD;
+    newUser.role = role ?? Roles.STANDARD;
     preferences.darkMode = false;
     preferences.lang = 'fr-FR';
     preferences.notifications = true;
@@ -155,5 +160,32 @@ export class UsersService {
       .set({ avatar: avatar })
       .where('id = :id', { id: id })
       .execute();
+  }
+
+  async subscribe(
+    id: number,
+    tier: SubscriptionTierEnum,
+    type: SubscriptionTypeEnum,
+  ): Promise<User> {
+    const user: User = await this.getById(id);
+    const newSub = new Subscription();
+    newSub.createDate = new Date();
+    newSub.tier = tier;
+    newSub.type = type;
+    if (type == SubscriptionTypeEnum.MENSUAL) {
+      const nextMonth = (newSub.createDate.getMonth() + 1) % 12;
+      newSub.nextPayment = new Date(newSub.createDate.setMonth(nextMonth));
+    } else if (type == SubscriptionTypeEnum.ANNUAL) {
+      const nextYear = newSub.createDate.getFullYear() + 1;
+      newSub.nextPayment = new Date(newSub.createDate.setFullYear(nextYear));
+    }
+    user.subscription = newSub;
+    return this.userRepository.save(user);
+  }
+
+  async unsubscribe(id: number): Promise<User> {
+    const user: User = await this.getById(id);
+    user.subscription.type = SubscriptionTypeEnum.UNIQUE;
+    return this.userRepository.save(user);
   }
 }

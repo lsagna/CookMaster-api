@@ -9,12 +9,23 @@ import {
 import { Address } from './address.entity';
 import { Roles } from 'src/modules/authentication/enum/roles.enum';
 import { RefreshToken } from './refresh-token.entity';
+import {
+  SubscriptionTierEnum,
+  SubscriptionTypeEnum,
+} from '../enum/subscription.enum';
 
 export class Preferences {
   lang: string;
   darkMode: boolean;
   notifications: boolean;
   updates: boolean;
+}
+
+export class Subscription {
+  tier: SubscriptionTierEnum;
+  type: SubscriptionTypeEnum;
+  nextPayment: Date | null;
+  createDate: Date;
 }
 
 @Entity('users')
@@ -52,6 +63,9 @@ export class User {
 
   @Column()
   role: Roles;
+
+  @Column('json', { nullable: true })
+  subscription: Subscription;
 
   @CreateDateColumn()
   createDate: Date;
