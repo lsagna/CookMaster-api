@@ -1,3 +1,4 @@
+import { Establishment } from 'src/modules/establishments/entities/establishment.entity';
 import { Timeslot } from 'src/modules/timeslots/entities/timeslot.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import {
@@ -24,6 +25,15 @@ export class Rent {
 
   @Column()
   date: Date;
+
+  @Column()
+  establishment: Establishment;
+
+  @Column()
+  roomId: number;
+
+  @Column()
+  workbenchId: number;
 
   @OneToMany(() => Timeslot, (timeslots) => timeslots.rent)
   timeslots: Timeslot[];

@@ -1,3 +1,4 @@
+import { Rent } from 'src/modules/rents/entities/rent.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import {
   Column,
@@ -13,17 +14,10 @@ export class Timeslot {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => Rent)
   @JoinColumn()
-  creator: User;
-
-  @ManyToOne(() => User)
-  @JoinColumn()
-  rent: User;
+  rent: Rent;
 
   @Column()
   date: Date;
-
-  @CreateDateColumn()
-  createDate: Date;
 }

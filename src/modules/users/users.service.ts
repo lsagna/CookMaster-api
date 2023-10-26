@@ -61,12 +61,13 @@ export class UsersService {
     newUser.email = userDto.email;
     userDto.password = await hash(userDto.password, 10);
     newUser.password = userDto.password;
-    newUser.role = Roles.STANDARD;
+    newUser.role = role;
     preferences.darkMode = false;
     preferences.lang = 'fr-FR';
     preferences.notifications = true;
     preferences.updates = true;
     newUser.preferences = preferences;
+    newUser.interactions = [];
 
     return this.userRepository.save(newUser);
   }
