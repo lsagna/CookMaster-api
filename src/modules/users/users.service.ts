@@ -67,7 +67,7 @@ export class UsersService {
     preferences.notifications = true;
     preferences.updates = true;
     newUser.preferences = preferences;
-    newUser.shoppingCart = [];
+    newUser.interactions = [];
 
     return this.userRepository.save(newUser);
   }

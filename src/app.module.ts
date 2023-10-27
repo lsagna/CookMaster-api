@@ -5,6 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { ProductsModule } from './modules/products/product.module';
+import { CoursesModule } from './modules/courses/course.module';
+import { TimeslotModule } from './modules/timeslots/timeslot.module';
+import { RentModule } from './modules/rents/rent.module';
 
 @Module({
   imports: [
@@ -24,7 +28,11 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
       ssl: false,
     }),
     UsersModule,
+    ProductsModule,
     AuthenticationModule,
+    CoursesModule,
+    TimeslotModule,
+    RentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

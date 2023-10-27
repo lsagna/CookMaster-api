@@ -33,7 +33,6 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async createUser(
-    @Param('id') id: number,
     @Body() userDto: CreateUserDto,
     @Body() role: Roles,
   ): Promise<User> {

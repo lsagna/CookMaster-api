@@ -9,6 +9,7 @@ import {
 import { Address } from './address.entity';
 import { Roles } from 'src/modules/authentication/enum/roles.enum';
 import { RefreshToken } from './refresh-token.entity';
+import { InteractionRoom } from 'src/modules/interactions/entities/interaction-room.entity';
 
 export class Preferences {
   lang: string;
@@ -54,7 +55,7 @@ export class User {
   role: Roles;
 
   @Column()
-  shoppingCart: number[];
+  interactions: InteractionRoom[];
 
   @CreateDateColumn()
   createDate: Date;
