@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { InteractionRoom } from './interaction-room.entity';
+import { MessagingRoom } from './messaging-room.entity';
 
 @Entity('messages')
 export class Message {
@@ -15,8 +15,8 @@ export class Message {
   @Column()
   writer: number;
 
-  @ManyToOne(() => InteractionRoom, (room) => room.messages)
-  room: InteractionRoom;
+  @ManyToOne(() => MessagingRoom, (room) => room.messages)
+  room: MessagingRoom;
 
   @Column('int', { array: true, default: [] })
   seen: number[];

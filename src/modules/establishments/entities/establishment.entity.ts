@@ -1,3 +1,4 @@
+import { Timeslot } from 'src/modules/timeslots/entities/timeslot.entity';
 import { Address } from 'src/modules/users/entities/address.entity';
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -27,6 +28,9 @@ export class Room {
 
   @Column()
   capacity: number;
+
+  @Column()
+  schedule: Timeslot[];
 
   @Column()
   remainingWorkbench: number[];

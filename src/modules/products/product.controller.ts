@@ -22,7 +22,7 @@ export class ProductsController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getAllCourses(
+  async getAllProducts(
     @Query('relations') relations: string[] = [],
     @Query('relation') relation: string,
   ): Promise<Product[]> {
@@ -32,7 +32,7 @@ export class ProductsController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async getCourse(
+  async getProduct(
     @Param() req,
     @Query('relations') relations: string[] = [],
     @Query('relation') relation: string,

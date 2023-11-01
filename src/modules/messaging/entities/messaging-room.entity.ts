@@ -9,8 +9,8 @@ import {
 import { User } from '../../users/entities/user.entity';
 import { Message } from './message.entity';
 
-@Entity('interaction-rooms')
-export class InteractionRoom {
+@Entity('messaging-rooms')
+export class MessagingRoom {
   @PrimaryGeneratedColumn()
   id: number;
 
